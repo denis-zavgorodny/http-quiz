@@ -109,11 +109,27 @@ def mission1():
 @check_step(step="/mission1")
 def mission2():
     result = request.cookies.get("result")
+
+    if result is None:
+        return "I can not find cookie with name `result` in your request"
+
     data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
     if int(data.get("first_number")) + int(data.get("second_number")) == int(result):
-        return "success"
+        return f"""
+        Cool. The result is {result}. Well done! \n\r
+        Now I would ask you to send me POST request to endpoint `/mission3`. \n\r  
+        
+        """, 200
 
-    return data
+    return "Hmmm, looks like you need to think really carefully, it's just a Math."
+
+
+@app.route("/mission3")
+@check_step(step="/mission2")
+def mission3():
+    # data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
+
+    return "Yahoo! Well done! You jast finished the puzzle"
 
 
 if __name__ == '__main__':
