@@ -69,6 +69,15 @@ class TestTasks(unittest.TestCase):
         self.assertEqual(200, response.status_code)
         self.assertIn("You need to finish previous step. Please visit `/hello`", response.text)
 
+    def test_mission1_no_header(self):
+
+
+        response = self.client.get(f"/mission1")
+
+        # then
+        self.assertEqual(401, response.status_code)
+        self.assertIn("You need to pass a valid non-empty token as `x-secret` header", response.text)
+
 
 if __name__ == '__main__':
     unittest.main()
