@@ -59,6 +59,10 @@ class TestTasks(unittest.TestCase):
         self.assertIn("Then please, add those two numbers and send me the result back to the endpoint `/mission2`", response.text)
 
         self.assertIn(response_secret, response.text)
+        self.assertEqual([
+            "first_number=10; Path=/",
+            "second_number=10; Path=/"
+        ], response.headers.get_all("Set-Cookie"))
 
     def test_mission1_wrong_step(self):
         secret = jwt.encode({"email": self._mail, "step": "/some"}, config.get("SECRET"), algorithm='HS256')
