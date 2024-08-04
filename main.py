@@ -1,15 +1,16 @@
 import random
+from pathlib import Path
 
 from flask import Flask, request, make_response
 import jwt
 from dotenv import dotenv_values
 
-
-config = dotenv_values(".env")
+config = dotenv_values(Path(__file__).parent / ".env")
 
 app = Flask(__name__)
 
 SEPARATOR = "\n\r/******************************************************/\n\r"
+
 
 @app.route("/")
 def index():
@@ -43,6 +44,7 @@ def check_step(step: str):
         decorated_function.__name__ = f.__name__
         decorated_function.__doc__ = f.__doc__
         return decorated_function
+
     return decorator
 
 
