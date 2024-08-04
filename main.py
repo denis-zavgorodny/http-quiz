@@ -129,7 +129,7 @@ def mission2():
 def mission3():
     # data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
 
-    return "Yahoo! Well done! You jast finished the puzzle"
+    return "Yahoo! Well done! You just finished the puzzle"
 
 
 if __name__ == '__main__':
