@@ -47,7 +47,6 @@ def check_step(step: str):
 
 
 @app.route("/hello")
-@check_step(step="/")
 def hello():
     email = request.args.get("email")
 
