@@ -7,7 +7,6 @@ from dotenv import dotenv_values
 from main import app
 import unittest
 
-# config = dotenv_values("../.env")
 config = dotenv_values(Path(__file__).parent.parent / ".env")
 
 class TestTasks(unittest.TestCase):
