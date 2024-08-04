@@ -43,8 +43,8 @@ class TestTasks(unittest.TestCase):
         self.assertIn(secret, response.text)
 
     @patch('main.random')
-    def test_mission1(self, mocked_rundom):
-        mocked_rundom.randint.return_value = "10"
+    def test_mission1(self, mocked_random):
+        mocked_random.randint.return_value = "10"
         secret = jwt.encode({"email": self._mail, "step": "/hello"}, config.get("SECRET"), algorithm='HS256')
         response_secret = jwt.encode({
             "email": self._mail,
