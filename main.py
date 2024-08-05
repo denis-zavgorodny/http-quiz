@@ -123,22 +123,54 @@ def mission2():
     }, config.get("SECRET"), algorithm='HS256')
 
     if int(data.get("first_number")) + int(data.get("second_number")) == int(result):
+        json = """
+        {
+            "email": "your email here",
+            "today": "Monday (put current day of the week here)"    
+        }
+        """
         return f"""
         Cool. The result is {result}. Well done!
-        Now I would ask you to send me POST request to endpoint `/mission3`. \n\r  
-        Your secret for this mission is: {signature} \n\r
-        Please, use `x-secret` to add the secret to the request
+        Now I would ask you to send me POST request to endpoint `/mission3` with JSON data. 
+        Please send the following JSON data:
+        {json}
+        \n\rYour secret for this mission is: {signature} \n\r
+        Please, use `x-secret` header to add the secret to the request
         """, 200
 
     return "Hmmm, looks like you need to think really carefully, it's just a Math."
 
 
-@app.route("/mission3")
+@app.route("/mission3", methods=["POST"])
 @check_step(step="/mission2")
 def mission3():
-    # data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
+    data = request.get_json()
+    if data.get("email") is None:
+        return "I expect you to send your email", 400
 
-    return "Yahoo! Well done! You just finished the puzzle"
+    if data.get("today") is None:
+        return "I expect you to send current day of the Week", 400
+
+    user_data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
+
+    if data.get("email") != user_data.get("email"):
+        return "Please check email in your JSON", 400
+
+    signature = jwt.encode({
+        "email": data.get("email"),
+        "step": "/mission3",
+    }, config.get("SECRET"), algorithm='HS256')
+
+    return f"""
+    Yahoo! Well done! You sent your POST request with JSON data using cURL. 
+    Now you know how to manually send HTTP requests with headers, cookies and 
+    parameters. Regular Web sites and applications use the same HTTP requests 
+    to communicate with web servers.  
+    \n\rHere is your code: {signature}
+    Please, use this code as an answer and add it to the Moodle.
+    
+    """, 200
+
 
 
 if __name__ == '__main__':
