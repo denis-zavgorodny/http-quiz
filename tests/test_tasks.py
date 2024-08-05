@@ -74,13 +74,48 @@ class TestTasks(unittest.TestCase):
         self.assertIn("You need to finish previous step. Please visit `/hello`", response.text)
 
     def test_mission1_no_header(self):
-
-
         response = self.client.get(f"/mission1")
 
         # then
         self.assertEqual(401, response.status_code)
         self.assertIn("You need to pass a valid non-empty token as `x-secret` header", response.text)
+
+
+    def test_mission2_no_header(self):
+        secret = jwt.encode({
+            "email": self._mail,
+            "step": "/mission1",
+            "first_number": "10",
+            "second_number": "10"
+        }, config.get("SECRET"), algorithm='HS256')
+        response = self.client.get(f"/mission2", headers={"x-secret": secret})
+
+        # then
+        self.assertEqual(200, response.status_code)
+        self.assertIn("I can not find cookie with name `result` in your request", response.text)
+
+    def test_mission2_with_header(self):
+        secret = jwt.encode({
+            "email": self._mail,
+            "step": "/mission1",
+            "first_number": "10",
+            "second_number": "10"
+        }, config.get("SECRET"), algorithm='HS256')
+
+        self.client.set_cookie("result", "20")
+
+        response_secret = jwt.encode({
+            "email": self._mail,
+            "step": "/mission2",
+        }, config.get("SECRET"), algorithm='HS256')
+
+        response = self.client.get(f"/mission2", headers={"x-secret": secret})
+
+        # then
+        self.assertEqual(200, response.status_code)
+        self.assertIn("Cool. The result is 20. Well done!", response.text)
+        self.assertIn(response_secret, response.text)
+
 
 
 if __name__ == '__main__':
