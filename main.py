@@ -100,7 +100,7 @@ def mission1():
     {SEPARATOR}
     Good job! You just have learned how to send GET HTTP request with custom headers 🚀.\n\r
     
-    Here is your next task: Please inspect this request very carefully and find two cookies 
+    Here is your next task: Please inspect this response very carefully and find two cookies 
     in the response with the following names: `first_number` and `second_number`.\n\r
     If you do not see cookies you probably should use `-v` for your cURL call.\n\r
     
