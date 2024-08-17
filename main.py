@@ -20,7 +20,7 @@ def index():
     ( o.o ) 
      > ^ <
      
-Hey! Let's play! THe game is about sending different HTTP requests and solving puzzles.\n\t
+Hey! Let's play! The rules are simple: I want you to send different HTTP requests and solving puzzles.\n\t
 Please, use /hello endpoint to start.
     """, 200
 
