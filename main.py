@@ -1,7 +1,7 @@
 import random
 from pathlib import Path
 
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, Request
 import jwt
 from dotenv import dotenv_values
 
@@ -158,6 +158,7 @@ def mission2():
 @check_step(step="/mission2")
 def mission3():
     data = request.get_json()
+    agent = get_user_agent(request)
     if data.get("email") is None:
         return "I expect you to send your email", 400
 
@@ -178,7 +179,7 @@ def mission3():
     {SEPARATOR}
     Yahoo! Well done! 
     
-    You sent your POST request with JSON data using cURL. 
+    You sent your POST request with JSON data using {agent}. 
     Now you know how to manually send HTTP requests with headers, cookies and 
     parameters. 
     
@@ -192,6 +193,17 @@ def mission3():
     ☝️ Please, use this code as an answer and add it to the Moodle.
     {SEPARATOR}
     """, 200
+
+
+def get_user_agent(request: Request):
+    user_agent = request.headers.get("User-Agent")
+
+    if "curl" in user_agent:
+        return "cURL"
+    elif "Postman" in user_agent:
+        return "Postman"
+    else:
+        return f"Browser"
 
 
 

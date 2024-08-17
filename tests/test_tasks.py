@@ -56,7 +56,8 @@ class TestTasks(unittest.TestCase):
 
         # then
         self.assertEqual(200, response.status_code)
-        self.assertIn("Then please, add those two numbers and send me the result back to the endpoint `/mission2`", response.text)
+        self.assertIn("Then please, add those two numbers and send me the result back", response.text)
+        self.assertIn("to the endpoint `/mission2`", response.text)
 
         self.assertIn(response_secret, response.text)
         self.assertEqual([
