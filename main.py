@@ -10,7 +10,7 @@ print(config)
 
 app = Flask(__name__)
 
-SEPARATOR = "\n\r/******************************************************/\n\r"
+SEPARATOR = "\n\r\n\r/******************************************************/\n\r\n\r"
 
 
 @app.route("/")
@@ -20,7 +20,10 @@ def index():
     ( o.o ) 
      > ^ <
      
-Hey! Let's play! The rules are simple: I want you to send different HTTP requests and solving puzzles.\n\t
+Hey! Let's play! 
+
+The rules are simple: I want you to send different HTTP requests and solving puzzles.
+
 Please, use /hello endpoint to start.
     """, 200
 
