@@ -104,8 +104,8 @@ def mission1():
     in the response with the following names: `first_number` and `second_number`.\n\r
     If you do not see cookies you probably should use `-v` for your cURL call.\n\r
     
-    Then please, add those two numbers and send me the result back to the endpoint `/mission2` as a cookie
-    with name `result`.\n\r
+    Then please, add those two numbers and send me the result back 
+    to the endpoint `/mission2` as a cookie with name `result`.\n\r
     
     ❗❗❗I also expect you to send me this token in HTTP header `x-secret`\n\r
     \n\r
