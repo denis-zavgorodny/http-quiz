@@ -179,9 +179,11 @@ def mission3():
     Yahoo! Well done! You sent your POST request with JSON data using cURL. 
     Now you know how to manually send HTTP requests with headers, cookies and 
     parameters. Regular Web sites and applications use the same HTTP requests 
-    to communicate with web servers.  
-    \n\rHere is your code: {signature}
+    to communicate with web servers.
     
+    The quiz is done ✅
+      
+    \n\rHere is your code: {signature}
     
     ☝️ Please, use this code as an answer and add it to the Moodle.
     {SEPARATOR}
