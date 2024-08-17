@@ -176,9 +176,13 @@ def mission3():
 
     return f"""
     {SEPARATOR}
-    Yahoo! Well done! You sent your POST request with JSON data using cURL. 
+    Yahoo! Well done! 
+    
+    You sent your POST request with JSON data using cURL. 
     Now you know how to manually send HTTP requests with headers, cookies and 
-    parameters. Regular Web sites and applications use the same HTTP requests 
+    parameters. 
+    
+    Regular Web sites and applications use the same HTTP requests 
     to communicate with web servers.
     
     The quiz is done ✅
