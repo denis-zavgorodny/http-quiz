@@ -62,15 +62,15 @@ def hello():
     signature = jwt.encode({"email": email, "step": "/hello"}, config.get("SECRET"), algorithm='HS256')
 
     return f"""
-{SEPARATOR}    
- Nice to meet you, {email}!
+    {SEPARATOR}    
+    Nice to meet you, {email}!
 
- You just sent HTTP GET request with parameter using cURL. Well done!
+    You just sent HTTP GET request with parameter using cURL. Well done!
 
- Here is your personal token:\n\r
- \t{signature}\n\r
- Your next mission is to send me this token in HTTP header `x-secret` back to endpoint `/mission1`.
-{SEPARATOR}
+    Here is your personal token:\n\r
+    \t{signature}\n\r
+    Your next mission is to send me this token in HTTP header `x-secret` back to endpoint `/mission1`.
+    {SEPARATOR}
     \n\r"""
 
 
@@ -91,6 +91,7 @@ def mission1():
     response.set_cookie("first_number", first_number.__str__())
     response.set_cookie("second_number", second_number.__str__())
     response.data = f"""
+    {SEPARATOR}
     Good job! You just have learned how to send GET HTTP request with custom headers 🚀.\n\r
     
     Here is your next task: Please inspect this request very carefully and find two cookies 
@@ -133,12 +134,14 @@ def mission2():
         }
         """
         return f"""
+        {SEPARATOR}
         Cool. The result is {result}. Well done!
         Now I would ask you to send me POST request to endpoint `/mission3` with JSON data. 
         Please send the following JSON data:
         {json}
         \n\rYour secret for this mission is: {signature} \n\r
         Please, use `x-secret` header to add the secret to the request
+        {SEPARATOR}
         """, 200
 
     return "Hmmm, looks like you need to think really carefully, it's just a Math."
@@ -165,13 +168,14 @@ def mission3():
     }, config.get("SECRET"), algorithm='HS256')
 
     return f"""
+    {SEPARATOR}
     Yahoo! Well done! You sent your POST request with JSON data using cURL. 
     Now you know how to manually send HTTP requests with headers, cookies and 
     parameters. Regular Web sites and applications use the same HTTP requests 
     to communicate with web servers.  
     \n\rHere is your code: {signature}
     Please, use this code as an answer and add it to the Moodle.
-    
+    {SEPARATOR}
     """, 200
 
 
