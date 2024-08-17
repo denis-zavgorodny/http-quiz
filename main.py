@@ -181,7 +181,9 @@ def mission3():
     parameters. Regular Web sites and applications use the same HTTP requests 
     to communicate with web servers.  
     \n\rHere is your code: {signature}
-    Please, use this code as an answer and add it to the Moodle.
+    
+    
+    ☝️ Please, use this code as an answer and add it to the Moodle.
     {SEPARATOR}
     """, 200
 
