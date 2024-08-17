@@ -111,6 +111,7 @@ def mission1():
     \n\r
     {signature}
     \n\r
+    {SEPARATOR}
     """
     response.status_code = 200
 
