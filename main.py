@@ -39,15 +39,15 @@ def check_step(step: str):
         def decorated_function(*args, **kwargs):
             api_key = request.headers.get("x-secret")
             if api_key is None:
-                return "You need to pass a valid non-empty token as `x-secret` header \n\r", 401
+                return wrap_error("You need to pass a valid non-empty token as `x-secret` header"), 401
 
             try:
                 data = jwt.decode(jwt=api_key, key=config.get("SECRET"), algorithms='HS256')
                 if data.get("step") != step:
-                    return f"You need to finish previous step. Please visit `{step}`\n\r"
+                    return wrap_error(f"You need to finish previous step. Please visit `{step}`")
 
             except Exception as e:
-                return "\n\rLooks like it's wrong token\n\r", 400
+                return wrap_error("Looks like it's wrong token"), 400
 
             return f(*args, **kwargs)
 
@@ -63,7 +63,7 @@ def hello():
     email = request.args.get("email")
 
     if email is None:
-        return """\n\r Please, send me your email as `email` GET parameter so we could start\n\r""", 401
+        return wrap_error("Please, send me your email as `email` GET parameter so we could start"), 401
 
     signature = jwt.encode({"email": email, "step": "/hello"}, config.get("SECRET"), algorithm='HS256')
 
@@ -128,7 +128,7 @@ def mission2():
     result = request.cookies.get("result")
 
     if result is None:
-        return "I can not find cookie with name `result` in your request"
+        return wrap_error("I can not find cookie with name `result` in your request")
 
     data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
 
@@ -157,7 +157,7 @@ def mission2():
         {SEPARATOR}
         """, 200
 
-    return "Hmmm, looks like you need to think really carefully, it's just a Math."
+    return wrap_error("Hmmm, looks like you need to think really carefully, it's just a Math.")
 
 
 @app.route("/mission3", methods=["POST"])
@@ -166,15 +166,15 @@ def mission3():
     data = request.get_json()
     agent = get_user_agent(request)
     if data.get("email") is None:
-        return "I expect you to send your email", 400
+        return wrap_error("I expect you to send your email"), 400
 
     if data.get("today") is None:
-        return "I expect you to send current day of the Week", 400
+        return wrap_error("I expect you to send current day of the Week"), 400
 
     user_data = jwt.decode(jwt=request.headers.get("x-secret"), key=config.get("SECRET"), algorithms='HS256')
 
     if data.get("email") != user_data.get("email"):
-        return "Please check email in your JSON", 400
+        return wrap_error("Please check email in your JSON"), 400
 
     signature = jwt.encode({
         "email": data.get("email"),
@@ -203,7 +203,7 @@ def mission3():
     """, 200
 
 
-def get_user_agent(request: Request):
+def get_user_agent(request: Request) -> str:
     user_agent = request.headers.get("User-Agent")
 
     if "curl" in user_agent:
@@ -214,6 +214,14 @@ def get_user_agent(request: Request):
         return f"Browser"
 
 
+def wrap_error(error: str) -> str:
+    return f"""
+    {SEPARATOR}
+    ⚠️ Something went wrong:
+    
+    {error}
+    {SEPARATOR}
+    """
 
 if __name__ == '__main__':
     app.run(debug=True, port=config.get("PORT"))
