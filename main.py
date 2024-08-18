@@ -47,7 +47,7 @@ def check_step(step: str):
                     return wrap_error(f"You need to finish previous step. Please visit `{step}`")
 
             except Exception as e:
-                return wrap_error("Looks like it's wrong token"), 400
+                return wrap_error("Looks like it's wrong token. Please pass valid token in `x-secret` header."), 400
 
             return f(*args, **kwargs)
 
