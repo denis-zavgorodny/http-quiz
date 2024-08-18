@@ -68,7 +68,9 @@ def hello():
     signature = jwt.encode({"email": email, "step": "/hello"}, config.get("SECRET"), algorithm='HS256')
 
     return f"""
-    {SEPARATOR}    
+    {SEPARATOR}  
+    █░░░░░░░░░░░ 1/4
+      
     Nice to meet you, {email}!
 
     You just sent HTTP GET request with parameter using cURL. Well done!
@@ -98,6 +100,8 @@ def mission1():
     response.set_cookie("second_number", second_number.__str__())
     response.data = f"""
     {SEPARATOR}
+    ██████░░░░░░ 2/4
+    
     Good job! You just have learned how to send GET HTTP request with custom headers 🚀.\n\r
     
     Here is your next task: Please inspect this response very carefully and find two cookies 
@@ -142,6 +146,8 @@ def mission2():
         """
         return f"""
         {SEPARATOR}
+        █████████░░░ 3/4
+        
         Cool. The result is {result}. Well done!
         Now I would ask you to send me POST request to endpoint `/mission3` with JSON data. 
         Please send the following JSON data:
@@ -177,6 +183,8 @@ def mission3():
 
     return f"""
     {SEPARATOR}
+    ████████████ 4/4
+    
     Yahoo! Well done! 
     
     You sent your POST request with JSON data using {agent}. 
