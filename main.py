@@ -149,7 +149,11 @@ def mission2():
         █████████░░░ 3/4
         
         Cool. The result is {result}. Well done!
-        Now I would ask you to send me POST request to endpoint `/mission3` with JSON data. 
+        Now I would ask you to send me POST request to endpoint `/mission3` with JSON data.
+        
+        Please notice that you need to send `Content-Type: application/json` header to be able 
+        to send JSON over POST request. 
+        
         Please send the following JSON data:
         {json}
         \n\rYour secret for this mission is: {signature} \n\r
