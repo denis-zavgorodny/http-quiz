@@ -183,6 +183,7 @@ def mission3():
     signature = jwt.encode({
         "email": data.get("email"),
         "step": "/mission3",
+        "agent": agent
     }, config.get("SECRET"), algorithm='HS256')
 
     return f"""
