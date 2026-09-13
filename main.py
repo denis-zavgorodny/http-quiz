@@ -216,7 +216,7 @@ def get_user_agent(request: Request) -> str:
     elif "Postman" in user_agent:
         return "Postman"
     else:
-        return f"Browser"
+        return user_agent
 
 
 def wrap_error(error: str) -> str:
